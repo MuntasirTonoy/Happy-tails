@@ -1,0 +1,29 @@
+[
+  {
+    "_id": { "$oid": "64f101111111111111111111" },
+    "shelterName": "Dhaka Animal Shelter",
+    "location": "Banani, Dhaka",
+    "contactEmail": "info@dhaka-shelter.com",
+    "contactPhone": "+880199999999",
+    "userId": "firebase-uid-shelter1",
+    "createdAt": { "$date": "2025-09-02T11:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f101111111111111111112" },
+    "shelterName": "Khulna Pet Rescue",
+    "location": "Khulna City",
+    "contactEmail": "contact@khulna-rescue.com",
+    "contactPhone": "+880188888888",
+    "userId": "firebase-uid-shelter2",
+    "createdAt": { "$date": "2025-09-03T09:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f101111111111111111113" },
+    "shelterName": "Sylhet Cat Haven",
+    "location": "Sylhet Town",
+    "contactEmail": "hello@sylhetcat.com",
+    "contactPhone": "+880187777777",
+    "userId": "firebase-uid-shelter2",
+    "createdAt": { "$date": "2025-09-04T10:00:00Z" }
+  }
+]

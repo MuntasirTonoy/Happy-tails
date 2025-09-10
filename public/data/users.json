@@ -1,0 +1,62 @@
+[
+  {
+    "_id": { "$oid": "64f001111111111111111111" },
+    "uid": "firebase-uid-user1",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "phone": "+880171111111",
+    "address": "Dhaka, Bangladesh",
+    "createdAt": { "$date": "2025-09-01T10:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f001111111111111111112" },
+    "uid": "firebase-uid-user2",
+    "name": "Alice Rahman",
+    "email": "alice@example.com",
+    "role": "user",
+    "phone": "+880172222222",
+    "address": "Chattogram, Bangladesh",
+    "createdAt": { "$date": "2025-09-02T09:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f001111111111111111113" },
+    "uid": "firebase-uid-user3",
+    "name": "Mahmud Hasan",
+    "email": "mahmud@example.com",
+    "role": "user",
+    "phone": "+880173333333",
+    "address": "Sylhet, Bangladesh",
+    "createdAt": { "$date": "2025-09-02T12:15:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f001111111111111111114" },
+    "uid": "firebase-uid-shelter1",
+    "name": "Rahim Uddin",
+    "email": "rahim@shelter.com",
+    "role": "shelter",
+    "phone": "+880174444444",
+    "address": "Banani, Dhaka",
+    "createdAt": { "$date": "2025-09-03T11:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f001111111111111111115" },
+    "uid": "firebase-uid-shelter2",
+    "name": "Fatema Begum",
+    "email": "fatema@shelter.com",
+    "role": "shelter",
+    "phone": "+880175555555",
+    "address": "Khulna, Bangladesh",
+    "createdAt": { "$date": "2025-09-04T14:20:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f001111111111111111116" },
+    "uid": "firebase-uid-admin1",
+    "name": "Admin User",
+    "email": "admin@petconnect.com",
+    "role": "admin",
+    "phone": "+880176666666",
+    "address": "Head Office, Dhaka",
+    "createdAt": { "$date": "2025-09-05T08:45:00Z" }
+  }
+]

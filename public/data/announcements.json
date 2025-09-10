@@ -1,0 +1,23 @@
+[
+  {
+    "_id": { "$oid": "64f401111111111111111111" },
+    "title": "Adoption Camp 2025",
+    "message": "Free adoption camp at Dhaka on 20th Sept.",
+    "authorId": "firebase-uid-admin1",
+    "postedAt": { "$date": "2025-09-09T12:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f401111111111111111112" },
+    "title": "Vaccination Drive",
+    "message": "Free vaccination for adopted pets this weekend.",
+    "authorId": "firebase-uid-admin1",
+    "postedAt": { "$date": "2025-09-10T09:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f401111111111111111113" },
+    "title": "Volunteer Needed",
+    "message": "Dhaka Animal Shelter needs volunteers for pet care.",
+    "authorId": "firebase-uid-admin1",
+    "postedAt": { "$date": "2025-09-11T15:00:00Z" }
+  }
+]

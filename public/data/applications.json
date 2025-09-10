@@ -1,0 +1,32 @@
+[
+  {
+    "_id": { "$oid": "64f301111111111111111111" },
+    "userId": "firebase-uid-user1",
+    "petId": { "$oid": "64f201111111111111111111" },
+    "shelterId": { "$oid": "64f101111111111111111111" },
+    "applicationText": "I have a large yard and love Labradors.",
+    "status": "pending",
+    "createdAt": { "$date": "2025-09-07T10:00:00Z" },
+    "updatedAt": { "$date": "2025-09-07T10:10:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f301111111111111111112" },
+    "userId": "firebase-uid-user2",
+    "petId": { "$oid": "64f201111111111111111112" },
+    "shelterId": { "$oid": "64f101111111111111111111" },
+    "applicationText": "I want to adopt Kitty for my kids.",
+    "status": "approved",
+    "createdAt": { "$date": "2025-09-08T09:00:00Z" },
+    "updatedAt": { "$date": "2025-09-08T09:30:00Z" }
+  },
+  {
+    "_id": { "$oid": "64f301111111111111111113" },
+    "userId": "firebase-uid-user3",
+    "petId": { "$oid": "64f201111111111111111113" },
+    "shelterId": { "$oid": "64f101111111111111111112" },
+    "applicationText": "I have experience training dogs.",
+    "status": "pending",
+    "createdAt": { "$date": "2025-09-08T14:00:00Z" },
+    "updatedAt": { "$date": "2025-09-08T14:15:00Z" }
+  }
+]
