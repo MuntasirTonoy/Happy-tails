@@ -10,7 +10,7 @@ export default function Home() {
         <span className="btn btn-secondary btn-xl rounded-2xl ">
           @/public/data
         </span>
-        fetch those and use for designing
+        fetch those and use for designing .
       </h2>
     </div>
   );
