@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { AiOutlineUpload } from "react-icons/ai";
+import { CiImageOn } from "react-icons/ci";
+// import { AiOutlineUpload } from "react-icons/ai";
 
 function FileUpload({ label, name, accept, value, onChange }) {
   const [fileName, setFileName] = useState("");
@@ -16,7 +17,7 @@ function FileUpload({ label, name, accept, value, onChange }) {
     <div className="space-y-1">
       <label className="block font-semibold">{label}</label>
       <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-md h-32 cursor-pointer">
-        <AiOutlineUpload className="text-4xl text-gray-500" />
+        <CiImageOn className="text-4xl text-gray-500" />
         <span className="text-gray-500 mt-2">
           {fileName ? fileName : "Drag & drop file here or click to upload"}
         </span>
@@ -32,17 +33,14 @@ function FileUpload({ label, name, accept, value, onChange }) {
   );
 }
 
-export default function AdoptionForm() {
+export default function ShelterRequestForm() {
   const [formData, setFormData] = useState({
-    name: "John Doe",
-    email: "john@example.com",
-    experience: "",
-    livingSituation: "",
-    reason: "",
-    references: "",
-    visitDate: "",
-    idProof: null,
-    homePhoto: null,
+    shelterName: "",
+    location: "",
+    applicantName: "John Doe",       
+    applicantEmail: "john@example.com",
+    phone: "",
+    documents: null,
   });
 
   const handleChange = (e) => {
@@ -56,101 +54,92 @@ export default function AdoptionForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
+    console.log("Shelter Request Submitted:", formData);
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20">
-      <h1 className="text-2xl font-bold mb-6 text-center">Pet Adoption Application</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Shelter Request Form</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Applicant Info */}
-        {["name", "email"].map((field) => (
-          <div key={field} className="space-y-2">
-            <label className="block font-semibold">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
-            <input
-              type={field === "email" ? "email" : "text"}
-              name={field}
-              value={formData[field]}
-              disabled
-              className="w-full border px-3 py-2 rounded-md mt-2"
-            />
-          </div>
-        ))}
-
-        {/* Application Details */}
+        {/* Shelter Info */}
         <div className="space-y-2">
-          <label className="block font-semibold">Experience</label>
-          <textarea
-            name="experience"
-            value={formData.experience}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md"
-            placeholder="I have experience raising dogs..."
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="block font-semibold">Living Situation</label>
-          <textarea
-            name="livingSituation"
-            value={formData.livingSituation}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md"
-            placeholder="Apartment with balcony..."
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="block font-semibold">Reason for Adoption</label>
-          <textarea
-            name="reason"
-            value={formData.reason}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md"
-            placeholder="Why do you want to adopt this pet?"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="block font-semibold">References (Optional)</label>
-          <textarea
-            name="references"
-            value={formData.references}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md"
-            placeholder="Provide references if any"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="block font-semibold">Preferred Visit Date</label>
+          <label className="block font-semibold">Shelter Name</label>
           <input
-            type="date"
-            name="visitDate"
-            value={formData.visitDate}
+            type="text"
+            name="shelterName"
+            value={formData.shelterName}
             onChange={handleChange}
+            placeholder="Enter shelter name"
             className="w-full border px-3 py-2 rounded-md"
             required
           />
         </div>
+
+        <div className="space-y-2">
+          <label className="block font-semibold">Location</label>
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="City / Area"
+            className="w-full border px-3 py-2 rounded-md"
+            required
+          />
+        </div>
+
+        {/* Applicant Info */}
+        <div className="space-y-2">
+          <label className="block font-semibold">Applicant Name</label>
+          <input
+            type="text"
+            name="applicantName"
+            value={formData.applicantName}
+            disabled
+            className="w-full border px-3 py-2 rounded-md"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="block font-semibold">Applicant Email</label>
+          <input
+            type="email"
+            name="applicantEmail"
+            value={formData.applicantEmail}
+            disabled
+            className="w-full border px-3 py-2 rounded-md"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="block font-semibold">Phone Number</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="+8801XXXXXXXXX"
+            className="w-full border px-3 py-2 rounded-md"
+            required
+          />
+        </div>
+
 
         {/* File Uploads */}
         <FileUpload
-          label="Attachments (Optional)"
+          label="Shelter Image (Optional)"
           name="proof"
           accept=".pdf,.jpg,.png"
           onChange={handleChange}
         />
 
+
         <button
           type="submit"
           className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
         >
-          Submit Application
+          Submit Request
         </button>
       </form>
     </div>
