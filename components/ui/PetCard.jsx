@@ -43,7 +43,7 @@ export default function PetCard({ pet }) {
 
       <div className="p-4">
         <h3 className="text-lg font-semibold">{pet.name}</h3>
-        <p className="text-gray-600 text-sm">
+        <p className=" text-sm">
           {pet.species}, {pet.age} years
         </p>
         <div className="mt-3 flex gap-2">
