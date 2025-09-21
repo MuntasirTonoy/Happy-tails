@@ -62,7 +62,6 @@ export default function ShelterRequestForm() {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Shelter Name */}
         <div className="space-y-2">
           <label className="block font-semibold">Shelter Name</label>
           <input
