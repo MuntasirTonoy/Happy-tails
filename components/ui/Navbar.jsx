@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiHome } from "react-icons/hi"; 
 
+import { usePathname } from "next/navigation"; 
 // React Icons
 import {
   FaBars,
@@ -25,6 +26,7 @@ export default function Navbar() {
   const { darkMode, toggleTheme } = useTheme();
 
   const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
 
   const handleLogout = () => {
     setUser(null);
@@ -37,6 +39,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-extrabold text-2xl">
             <FaPaw className="text-green-700 dark:text-green-400" />
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-extrabold text-2xl"
+          >
+            <FaPaw className="text-green-600 dark:text-green-400" />
             <span className="sm:inline">HappyTails</span>
           </Link>
 
@@ -46,6 +53,10 @@ export default function Navbar() {
             <LinkItem href="/pets" label="Pets" icon={<FaPaw className="w-4 h-4" />} />
             <LinkItem href="/blogs" label="Blogs" icon={<FaBlog className="w-4 h-4 " />} variant="dark" />
             <LinkItem href="/about" label="About Us" icon={<FaInfoCircle className="w-4 h-4 " />} variant="dark" />
+            <LinkItem href="/" label="Home" />
+            <LinkItem href="/pets" label="Pets" />
+            <LinkItem href="/blogs" label="Blogs" variant="dark" />
+            <LinkItem href="/about" label="About Us" variant="dark" />
           </div>
 
           {/* Right Side - Auth & Profile */}
@@ -57,6 +68,15 @@ export default function Navbar() {
             {/* Theme Switch */}
             <button onClick={toggleTheme} className="hover:text-green-600 dark:hover:text-green-400">
               {darkMode ? <FaSun className="w-5 h-5 text-yellow-300" /> : <FaMoon className="w-5 h-5 text-yellow-300" />}
+            <button
+              onClick={toggleTheme}
+              className="hover:text-green-600 dark:hover:text-green-400"
+            >
+              {darkMode ? (
+                <FaSun className="w-5 h-5 text-yellow-300" />
+              ) : (
+                <FaMoon className="w-5 h-5 text-yellow-300" />
+              )}
             </button>
 
             {user ? (
@@ -66,6 +86,7 @@ export default function Navbar() {
                     src={user.photoURL || "/default-profile.png"}
                     alt="Profile"
                     className="w-8 h-8 rounded-full border-2 border-green-500"
+                    className="w-8 h-8 rounded-full border-2 border-green-600"
                   />
                   <span className="hidden sm:inline">{user.name}</span>
                 </button>
@@ -85,6 +106,17 @@ export default function Navbar() {
                 </Link>
                 <Link href="/register" className="flex text-base-content items-center gap-1 hover:text-green-600 dark:hover:text-green-400">
                   <FaUserPlus className="w-4 h-4" /> Register
+                <Link
+                  href="/login"
+                  className="flex text-base-content items-center gap-1 hover:text-green-600 dark:hover:text-green-400"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="flex text-base-content items-center gap-1 hover:text-green-600 dark:hover:text-green-400"
+                >
+                  Register
                 </Link>
               </>
             )}
@@ -96,6 +128,11 @@ export default function Navbar() {
             className="block lg:hidden text-base-content hover:text-green-600 dark:hover:text-green-400"
           >
             {isOpen ? <FaTimes className="w-7 h-7" /> : <FaBars className="w-7 h-7" />}
+            {isOpen ? (
+              <FaTimes className="w-7 h-7" />
+            ) : (
+              <FaBars className="w-7 h-7" />
+            )}
           </button>
         </div>
       </nav>
@@ -105,6 +142,11 @@ export default function Navbar() {
         {isOpen && (
           <>
             {/* Blur overlay only for main content */}
+      {/* Mobile Drawer and  Main content Blur */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* blur overlay  */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -132,6 +174,15 @@ export default function Navbar() {
                 <span className="text-base-content">Theme:</span>
                 <button onClick={toggleTheme}>
                   {darkMode ? <FaSun className="w-5 h-5 text-yellow-300" /> : <FaMoon className="w-5 h-5 text-yellow-300" />}
+              {/* Theme Toggle  Mobile */}
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-base-content">Theme:</span>
+                <button onClick={toggleTheme}>
+                  {darkMode ? (
+                    <FaSun className="w-5 h-5 text-yellow-300" />
+                  ) : (
+                    <FaMoon className="w-5 h-5 text-yellow-300" />
+                  )}
                 </button>
               </div>
 
@@ -140,6 +191,10 @@ export default function Navbar() {
                 <LinkItem href="/pets" label="Pets" icon={<FaPaw className="w-4 h-4" />} />
                 <LinkItemMobile href="/blogs" label="Blogs" icon={<FaBlog />} />
                 <LinkItemMobile href="/about" label="About Us" icon={<FaInfoCircle />} />
+                <LinkItemMobile href="/" label="Home" />
+                 <LinkItemMobile href="/pets" label="Pets" />
+                <LinkItemMobile href="/blogs" label="Blogs" />
+                <LinkItemMobile href="/about" label="About Us" />
 
                 {user ? (
                   <div className="flex flex-col gap-2 mt-2">
@@ -154,6 +209,8 @@ export default function Navbar() {
                   <>
                     <LinkItemMobile href="/login" label="Login" icon={<FaSignInAlt />} />
                     <LinkItemMobile href="/register" label="Register" icon={<FaUserPlus />} />
+                    <LinkItemMobile href="/login" label="Login" />
+                    <LinkItemMobile href="/register" label="Register" />
                   </>
                 )}
               </div>
@@ -180,6 +237,33 @@ function LinkItem({ href, label, icon, variant = "light" }) {
 
   return (
     <Link href={href} className={`${baseStyle} ${style}`}>
+/*  */
+function LinkItem({ href, label, icon, variant = "light" }) {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  let baseStyle =
+    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors";
+  let style = "";
+
+  if (variant === "dropdown") {
+    style =
+      "text-gray-700 dark:text-gray-200 hover:text-green-600 hover:bg-gray-100 dark:hover:bg-gray-700";
+  } else if (variant === "dark") {
+    style =
+      "hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-400";
+  } else {
+    style =
+      "hover:text-green-600 dark:hover:bg-gray-700 dark:hover:text-green-400";
+  }
+
+  return (
+    <Link
+      href={href}
+      className={`${baseStyle} ${style} ${
+        isActive ? "text-base-content underline underline-offset-4" : ""
+      }`}
+    >
       {icon} {label}
     </Link>
   );
@@ -189,6 +273,16 @@ function LinkItem({ href, label, icon, variant = "light" }) {
 function LinkItemMobile({ href, label, icon }) {
   return (
     <Link href={href} className="flex items-center gap-3 hover:text-green-600 dark:hover:bg-gray-700  p-2 rounded-lg transition-colors">
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      className={`flex items-center gap-3 hover:text-green-600 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors ${
+        isActive ? "text-base-content underline underline-offset-4" : ""
+      }`}
+    >
       {icon} <span>{label}</span>
     </Link>
   );
