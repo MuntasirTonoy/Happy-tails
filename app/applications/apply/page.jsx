@@ -15,10 +15,10 @@ function FileUpload({ label, name, accept, value, onChange }) {
   return (
     <div className="space-y-1">
       <label className="block font-semibold">{label}</label>
-      <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-md h-32 cursor-pointer">
-        <AiOutlineUpload className="text-4xl text-gray-500" />
-        <span className="text-gray-500 mt-2">
-          {fileName ? fileName : "Drag & drop file here or click to upload"}
+      <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md h-32 cursor-pointer hover:border-green-600 transition">
+        <AiOutlineUpload className="text-4xl text-gray-400" />
+        <span className="text-gray-500 mt-2 text-sm">
+          {fileName ? fileName : "Upload files or drag and drop (PNG, JPG, PDF up to 10MB)"}
         </span>
         <input
           type="file"
@@ -41,8 +41,7 @@ export default function AdoptionForm() {
     reason: "",
     references: "",
     visitDate: "",
-    idProof: null,
-    homePhoto: null,
+    attachment: null,
   });
 
   const handleChange = (e) => {
@@ -60,49 +59,80 @@ export default function AdoptionForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20">
-      <h1 className="text-2xl font-bold mb-6 text-center">Pet Adoption Application</h1>
+    <div className="max-w-2xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20 pb-10">
+      <h1 className="text-2xl font-bold mb-6 text-center">Application Form</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {/* Applicant Info */}
         {["name", "email"].map((field) => (
           <div key={field} className="space-y-2">
-            <label className="block font-semibold">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+            <label className="block font-semibold">
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </label>
             <input
               type={field === "email" ? "email" : "text"}
               name={field}
               value={formData[field]}
               disabled
-              className="w-full border px-3 py-2 rounded-md mt-2"
+              className="w-full border px-3 py-2 rounded-md cursor-not-allowed"
             />
           </div>
         ))}
 
-        {/* Application Details */}
+        {/* Application Type */}
         <div className="space-y-2">
-          <label className="block font-semibold">Experience</label>
-          <textarea
-            name="experience"
-            value={formData.experience}
+          <label className="block font-semibold">Application Type</label>
+          <select
+            name="applicationType"
+            value={formData.applicationType}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md"
-            placeholder="I have experience raising dogs..."
+            className="w-full border px-3 py-2 rounded-md bg-transparent text-gray-400"
             required
-          />
+          >
+            <option value="">Select application type</option>
+            <option value="dog">Dog Adoption</option>
+            <option value="cat">Cat Adoption</option>
+            <option value="other">Other Pet Adoption</option>
+          </select>
         </div>
 
-        <div className="space-y-2">
-          <label className="block font-semibold">Living Situation</label>
-          <textarea
-            name="livingSituation"
-            value={formData.livingSituation}
-            onChange={handleChange}
-            className="w-full border px-3 py-2 rounded-md"
-            placeholder="Apartment with balcony..."
-            required
-          />
+        {/* Dropdowns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="block font-semibold">Experience Level</label>
+            <select
+              name="experience"
+              value={formData.experience}
+              onChange={handleChange}
+              className="w-full border px-3 py-2 rounded-md bg-transparent text-gray-400"
+              required
+            >
+              <option value="">Select</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Experienced">Experienced</option>
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block font-semibold">Living Situation</label>
+            <select
+              name="livingSituation"
+              value={formData.livingSituation}
+              onChange={handleChange}
+              className="w-full border px-3 py-2 rounded-md bg-transparent text-gray-400"
+              required
+            >
+              <option value="">Select</option>
+              <option value="Own House with Yard">Own House with Yard</option>
+              <option value="Apartment">Apartment</option>
+              <option value="Shared Housing">Shared Housing</option>
+            </select>
+          </div>
         </div>
 
+
+        {/* Textareas */}
         <div className="space-y-2">
           <label className="block font-semibold">Reason for Adoption</label>
           <textarea
@@ -110,7 +140,7 @@ export default function AdoptionForm() {
             value={formData.reason}
             onChange={handleChange}
             className="w-full border px-3 py-2 rounded-md"
-            placeholder="Why do you want to adopt this pet?"
+            placeholder="Please provide a brief explanation of why you want to adopt a pet."
             required
           />
         </div>
@@ -122,10 +152,11 @@ export default function AdoptionForm() {
             value={formData.references}
             onChange={handleChange}
             className="w-full border px-3 py-2 rounded-md"
-            placeholder="Provide references if any"
+            placeholder="Please provide any references that can vouch for your ability to care for a pet."
           />
         </div>
 
+        {/* Date */}
         <div className="space-y-2">
           <label className="block font-semibold">Preferred Visit Date</label>
           <input
@@ -138,20 +169,23 @@ export default function AdoptionForm() {
           />
         </div>
 
-        {/* File Uploads */}
+        {/* File Upload */}
         <FileUpload
-          label="Attachments (Optional)"
-          name="proof"
+          label="Attachments"
+          name="attachment"
           accept=".pdf,.jpg,.png"
           onChange={handleChange}
         />
 
-        <button
-          type="submit"
-          className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
-        >
-          Submit Application
-        </button>
+        {/* Submit Button */}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
+            >
+              Submit Application
+            </button>
+          </div>
       </form>
     </div>
   );

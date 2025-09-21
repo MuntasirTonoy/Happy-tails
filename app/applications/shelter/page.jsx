@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
-// import { AiOutlineUpload } from "react-icons/ai";
 
-function FileUpload({ label, name, accept, value, onChange }) {
+function FileUpload({ name, accept, onChange }) {
   const [fileName, setFileName] = useState("");
 
   const handleFileChange = (e) => {
@@ -14,33 +13,31 @@ function FileUpload({ label, name, accept, value, onChange }) {
   };
 
   return (
-    <div className="space-y-1">
-      <label className="block font-semibold">{label}</label>
-      <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-md h-32 cursor-pointer">
-        <CiImageOn className="text-4xl text-gray-500" />
-        <span className="text-gray-500 mt-2">
-          {fileName ? fileName : "Drag & drop file here or click to upload"}
-        </span>
-        <input
-          type="file"
-          name={name}
-          accept={accept}
-          onChange={handleFileChange}
-          className="hidden"
-        />
-      </label>
-    </div>
+    <label className="flex flex-col items-center justify-center border-2 border-dashed border-green-400 rounded-md h-32 cursor-pointer hover:border-green-600 transition">
+      <CiImageOn className="text-4xl text-green-500" />
+      <span className="mt-2 text-sm">
+        {fileName
+          ? fileName
+          : "Upload a file or drag and drop (PNG, JPG, GIF up to 10MB)"}
+      </span>
+      <input
+        type="file"
+        name={name}
+        accept={accept}
+        onChange={handleFileChange}
+        className="hidden"
+      />
+    </label>
   );
 }
 
 export default function ShelterRequestForm() {
   const [formData, setFormData] = useState({
     shelterName: "",
+    shelterImage: null,
     location: "",
-    applicantName: "John Doe",       
-    applicantEmail: "john@example.com",
-    phone: "",
-    documents: null,
+    contactEmail: "",
+    contactPhone: "",
   });
 
   const handleChange = (e) => {
@@ -58,11 +55,14 @@ export default function ShelterRequestForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20">
-      <h1 className="text-2xl font-bold mb-6 text-center">Shelter Request Form</h1>
+    <div className="max-w-xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20">
+      <h1 className="text-2xl font-bold mb-2 text-center">Create a New Shelter</h1>
+      <p className="text-center mb-6">
+        Help us find more forever homes for pets in need.
+      </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Shelter Info */}
+        {/* Shelter Name */}
         <div className="space-y-2">
           <label className="block font-semibold">Shelter Name</label>
           <input
@@ -70,12 +70,23 @@ export default function ShelterRequestForm() {
             name="shelterName"
             value={formData.shelterName}
             onChange={handleChange}
-            placeholder="Enter shelter name"
+            placeholder="Happy Paws Shelter"
             className="w-full border px-3 py-2 rounded-md"
             required
           />
         </div>
 
+        {/* Shelter Image */}
+        <div className="space-y-2">
+          <label className="block font-semibold">Shelter Image</label>
+          <FileUpload
+            name="shelterImage"
+            accept=".png,.jpg,.gif"
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Location */}
         <div className="space-y-2">
           <label className="block font-semibold">Location</label>
           <input
@@ -83,64 +94,49 @@ export default function ShelterRequestForm() {
             name="location"
             value={formData.location}
             onChange={handleChange}
-            placeholder="City / Area"
+            placeholder="123 Kindness St, Anytown, USA"
             className="w-full border px-3 py-2 rounded-md"
             required
           />
         </div>
 
-        {/* Applicant Info */}
+        {/* Contact Email */}
         <div className="space-y-2">
-          <label className="block font-semibold">Applicant Name</label>
-          <input
-            type="text"
-            name="applicantName"
-            value={formData.applicantName}
-            disabled
-            className="w-full border px-3 py-2 rounded-md"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="block font-semibold">Applicant Email</label>
+          <label className="block font-semibold">Contact Email</label>
           <input
             type="email"
-            name="applicantEmail"
-            value={formData.applicantEmail}
-            disabled
-            className="w-full border px-3 py-2 rounded-md"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="block font-semibold">Phone Number</label>
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
+            name="contactEmail"
+            value={formData.contactEmail}
             onChange={handleChange}
-            placeholder="+8801XXXXXXXXX"
+            placeholder="contact@happypaws.org"
             className="w-full border px-3 py-2 rounded-md"
             required
           />
         </div>
 
+        {/* Contact Phone */}
+        <div className="space-y-2">
+          <label className="block font-semibold">Contact Phone</label>
+          <input
+            type="text"
+            name="contactPhone"
+            value={formData.contactPhone}
+            onChange={handleChange}
+            placeholder="(555) 123-4567"
+            className="w-full border px-3 py-2 rounded-md"
+            required
+          />
+        </div>
 
-        {/* File Uploads */}
-        <FileUpload
-          label="Shelter Image (Optional)"
-          name="proof"
-          accept=".pdf,.jpg,.png"
-          onChange={handleChange}
-        />
-
-
-        <button
-          type="submit"
-          className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
-        >
-          Submit Request
-        </button>
+        {/* Submit */}
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
+          >
+            Create Shelter
+          </button>
+        </div>
       </form>
     </div>
   );
