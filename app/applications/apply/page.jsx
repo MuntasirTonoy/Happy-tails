@@ -18,7 +18,7 @@ function FileUpload({ label, name, accept, value, onChange }) {
       <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md h-32 cursor-pointer hover:border-green-600 transition">
         <AiOutlineUpload className="text-4xl text-gray-400" />
         <span className="text-gray-500 mt-2 text-sm">
-          {fileName ? fileName : "Upload files or drag and drop (PNG, JPG, PDF up to 10MB)"}
+          {fileName ? fileName : "Upload files or drag and drop (PNG,, JPG, PDF up to 10MB)"}
         </span>
         <input
           type="file"
