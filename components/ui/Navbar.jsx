@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 // React Icons
 import {
   FaBars,
@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 py-4 backdrop-blur-md shadow-sm text-base-content">
+      <nav className="fixed top-0 left-0 w-full z-50  backdrop-blur-md shadow-sm text-base-content">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
           <Link
@@ -156,7 +156,7 @@ export default function Navbar() {
 
               <div className="flex flex-col text-base-content -ml-2 p-2 gap-4">
                 <LinkItemMobile href="/" label="Home" />
-                 <LinkItemMobile href="/pets" label="Pets" />
+                <LinkItemMobile href="/pets" label="Pets" />
                 <LinkItemMobile href="/blogs" label="Blogs" />
                 <LinkItemMobile href="/about" label="About Us" />
 
