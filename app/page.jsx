@@ -1,6 +1,7 @@
 import Banner from "@/components/ui/Banner";
 import HowItWorks from "@/components/ui/HowItWorks";
 import MakeDifference from "@/components/ui/MakeDifference";
+import MostPopularPets from "@/components/ui/MostPopularPets";
 
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <Banner/>
       <HowItWorks/>
       <MakeDifference/>
+      <MostPopularPets/>
     </main>
   );
 }
