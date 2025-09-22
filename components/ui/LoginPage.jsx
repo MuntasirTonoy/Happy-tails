@@ -1,12 +1,7 @@
-"use clint";
-
 import React from "react";
 import { FaPaw, FaGoogle, FaFacebookF } from "react-icons/fa";
 
 export default function LoginPage() {
-  const loginAction = (formData) => {
-    console.log(formData.get(email));
-  };
   return (
     <div className="bg-base-200 text-base-content min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md p-8">
@@ -20,7 +15,7 @@ export default function LoginPage() {
         </div>
 
         {/* Form */}
-        <form action={loginAction} className="space-y-4">
+        <form className="space-y-4">
           <div className="form-control">
             <label htmlFor="email" className="label">
               <span className="label-text">Email address</span>
@@ -73,11 +68,11 @@ export default function LoginPage() {
 
           {/* Social Buttons */}
           <div className="grid grid-cols-2 gap-3">
-            <button className="btn btn-outline w-full flex items-center gap-2">
+            <button className="btn  border-1 border-green-500 w-full flex items-center gap-2">
               <FaGoogle className="w-5 h-5" />
               Google
             </button>
-            <button className="btn btn-outline w-full flex items-center gap-2">
+            <button className="btn  border-1 border-green-500  w-full flex items-center gap-2">
               <FaFacebookF className="w-5 h-5" />
               Facebook
             </button>
