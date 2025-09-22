@@ -9,6 +9,8 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
     }));
   };
 
+  const badgeClass = "px-4 py-1 rounded-full bg-green-100 text-green-700 font-medium";
+
   return (
     <div className="max-w-7xl mx-auto bg-base-300 p-4 rounded-lg text-base-content shadow-sm mb-6">
       {/* Search */}
@@ -17,7 +19,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search pets by keyword..."
-        className="w-full md:w-1/2 px-4 py-2 rounded-md border border-gray-300 mb-4 md:mb-0"
+        className="w-full px-4 py-2 rounded-md border border-gray-300 mb-4 md:mb-0"
       />
 
       {/* Filters */}
@@ -26,7 +28,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="species"
           value={filters.species}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Species</option>
           <option>Dog</option>
@@ -38,7 +40,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="breed"
           value={filters.breed}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Breed</option>
           <option>Labrador</option>
@@ -51,7 +53,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="age"
           value={filters.age}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Age</option>
           <option value="0-1">0-1</option>
@@ -63,7 +65,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="gender"
           value={filters.gender}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Gender</option>
           <option>Male</option>
@@ -74,7 +76,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="size"
           value={filters.size}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Size</option>
           <option>Small</option>
@@ -86,7 +88,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="vaccinated"
           value={filters.vaccinated}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Vaccinated</option>
           <option value="true">Yes</option>
@@ -97,7 +99,7 @@ export default function FilterBar({ search, setSearch, filters, setFilters }) {
           name="location"
           value={filters.location}
           onChange={handleChange}
-          className="px-3 py-2 border rounded-md"
+          className={badgeClass}
         >
           <option value="">Location</option>
           <option>Dhaka</option>
