@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 py-2 md:py-2 lg:py-1 backdrop-blur-md shadow-sm text-base-content">
+      <nav className="fixed top-0 left-0 w-full z-50  backdrop-blur-md shadow-sm text-base-content">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
           <Link
@@ -124,7 +124,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 backdrop-blur-sm z-20 pointer-events-none"
+              className="fixed inset-0 backdrop-blur-md z-20 pointer-events-none"
             />
 
             {/* Drawer */}
@@ -133,12 +133,12 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              className="fixed top-0 left-0 h-full w-64 bg-green-700 dark:bg-green-500 text-white shadow-xl p-6 z-30"
+              className="fixed top-0 left-0 h-full w-64  text-white shadow-xl p-6 z-30"
             >
               <div className="flex justify-between items-center mb-4">
-                <span className="text-lg font-semibold">Menu</span>
+                <span className="text-lg text-base-content font-semibold mt-2">Menu</span>
                 <button onClick={() => setIsOpen(false)}>
-                  <FaTimes className="w-6 h-6" />
+                  <FaTimes className="w-6 h-6 mt-2 text-base-content" />
                 </button>
               </div>
 

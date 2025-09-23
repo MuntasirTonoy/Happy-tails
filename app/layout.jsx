@@ -1,6 +1,7 @@
 import Navbar from "@/components/ui/Navbar";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeContext";
+import Footer from "@/components/ui/Footer";
 
 export const metadata = {
   title: "Happy Tails ",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <Navbar />
           {children}
+          <Footer/>
         </ThemeProvider>
       </body>
     </html>
