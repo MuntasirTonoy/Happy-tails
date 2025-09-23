@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 // React Icons
 import {
   FaBars,
@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 py-4 backdrop-blur-md shadow-sm text-base-content">
+      <nav className="fixed top-0 left-0 w-full z-50 py-2 md:py-2 lg:py-1 backdrop-blur-md shadow-sm text-base-content">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
           <Link
@@ -87,13 +87,13 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="flex text-base-content items-center gap-1 hover:text-green-600 dark:hover:text-green-400"
+                  className="flex text-green-600 font-bold rounded-md bg-green-200 px-3 py-2 items-center gap-1 hover:text-green-600 dark:hover:text-green-500"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="flex text-base-content items-center gap-1 hover:text-green-600 dark:hover:text-green-400"
+                  className="flex text-white font-bold rounded-md bg-green-600 px-3 py-2 items-center gap-1 hover:text-green-100 dark:hover:text-green-200"
                 >
                   Register
                 </Link>
@@ -156,7 +156,7 @@ export default function Navbar() {
 
               <div className="flex flex-col text-base-content -ml-2 p-2 gap-4">
                 <LinkItemMobile href="/" label="Home" />
-                 <LinkItemMobile href="/pets" label="Pets" />
+                <LinkItemMobile href="/pets" label="Pets" />
                 <LinkItemMobile href="/blogs" label="Blogs" />
                 <LinkItemMobile href="/about" label="About Us" />
 
