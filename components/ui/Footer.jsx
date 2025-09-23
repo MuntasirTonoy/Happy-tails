@@ -4,11 +4,11 @@ import React from 'react'
 export default function Footer() {
   return (
     <div>
-    <footer className="footer footer-horizontal footer-center bg-base-100 text-base-content rounded p-10">
+    <footer className="footer footer-horizontal footer-center bg-base-200  text-base-content rounded px-10 py-16">
   <nav className="grid grid-flow-col gap-4">
-    <a className="link link-hover">Privacy Policy</a>
-    <a className="link link-hover">Terms of Service</a>
-    <a className="link link-hover">Contact Us</a>
+    <a className="link link-hover font-semibold">Privacy Policy</a>
+    <a className="link link-hover font-semibold">Terms of Service</a>
+    <a className="link link-hover font-semibold">Contact Us</a>
   </nav>
   <nav>
     <div className="grid grid-flow-col gap-4">

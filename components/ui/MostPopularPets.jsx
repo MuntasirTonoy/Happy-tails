@@ -23,14 +23,15 @@ export default function MostPopularPets() {
       .catch((err) => console.error("Error fetching pets:", err));
   }, []);
 
+  // Floating paws
   useEffect(() => {
     const paws = Array.from({ length: 40 }).map(() => {
-      const size = Math.floor(Math.random() * 20) + 8; 
+      const size = Math.floor(Math.random() * 20) + 8;
       const top = Math.random() * 100;
-      const left = Math.random() * 100; 
-      const opacity = (Math.random() * 0.4 + 0.1).toFixed(2); 
-      const duration = Math.floor(Math.random() * 10) + 4; 
-      const delay = Math.random() * 5; 
+      const left = Math.random() * 100;
+      const opacity = (Math.random() * 0.4 + 0.1).toFixed(2);
+      const duration = Math.floor(Math.random() * 10) + 4;
+      const delay = Math.random() * 5;
       return { size, top, left, opacity, duration, delay };
     });
     setFloatingPaws(paws);
@@ -45,20 +46,22 @@ export default function MostPopularPets() {
             Most Popular Pets
           </h2>
           <p className="mt-2 text-base-content">
-            Our lovely vaccinated pets are ready to bring happiness to your family.
+            Our lovely vaccinated pets are ready to bring happiness to your
+            family.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Left: Slider */}
           <div>
             <Swiper
+              key={vaccinatedPets.length} // ensure re-init only when data changes
               modules={[Autoplay]}
               autoplay={{
-                delay: 1000,
+                delay: 3000,
                 disableOnInteraction: false,
-                pauseOnMouseEnter: false,
               }}
+              speed={800} 
               loop={true}
               spaceBetween={20}
               slidesPerView={1}
@@ -71,14 +74,16 @@ export default function MostPopularPets() {
             >
               {vaccinatedPets.slice(0, 6).map((pet) => (
                 <SwiperSlide key={pet._id?.$oid || pet._id}>
-                  <div className="relative">
+                  <div className="relative flex justify-center items-center bg-gray-100 rounded-2xl">
                     <img
                       src={pet.imageUrl[0]}
                       alt={pet.name}
-                      className="w-full h-64 sm:h-72 md:h-80 object-cover rounded-2xl"
+                      className="w-full h-60 sm:h-72 md:h-80 object-contain md:object-cover rounded-2xl"
                     />
                     <div className="absolute bottom-4 left-4 px-4 py-2 rounded-xl bg-black/50">
-                      <h3 className="text-white font-semibold text-lg">{pet.name}</h3>
+                      <h3 className="text-white font-semibold text-lg">
+                        {pet.name}
+                      </h3>
                       <p className="text-gray-200 text-sm">{pet.breed}</p>
                     </div>
                   </div>
@@ -89,15 +94,17 @@ export default function MostPopularPets() {
 
           {/* Right: Main Paw Box */}
           <div className="relative flex items-center justify-center">
-            <div className="bg-green-600 dark:bg-green-400 text-white rounded-[50%] p-10 md:p-16 shadow-lg relative z-10">
-              <FaPaw className="absolute text-base-content -top-6 -left-6 text-6xl opacity-30" />
-              <h3 className="text-2xl text-base-content font-bold mb-2">Available for Adoption</h3>
-              <p className="mb-4 text-base-content text-sm">
+            <div className="bg-green-400 dark:bg-green-600 text-white rounded-full p-8 sm:p-10 md:p-16 shadow-lg relative z-10 text-center max-w-sm">
+              <FaPaw className="absolute text-base-content -top-6 -left-6 text-5xl sm:text-6xl opacity-30" />
+              <h3 className="text-xl sm:text-2xl text-base-content font-bold mb-2">
+                Available for Adoption
+              </h3>
+              <p className="mb-4 text-base-content text-sm sm:text-base">
                 Discover our vaccinated pets who are healthy, friendly, and
                 waiting for a new home.
               </p>
               <Link href="/pets">
-                <button className="px-5 py-2 bg-white text-green-700 rounded-full font-semibold shadow hover:bg-gray-100">
+                <button className="px-4 sm:px-5 py-2 bg-white text-green-700 rounded-md font-semibold shadow hover:bg-gray-100">
                   More Pets
                 </button>
               </Link>
@@ -124,8 +131,13 @@ export default function MostPopularPets() {
       {/* Keyframes */}
       <style jsx>{`
         @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
         }
       `}</style>
     </section>
