@@ -95,7 +95,7 @@ export default function OurGallery() {
                 className={`px-3 py-1 rounded ${
                   currentPage === i + 1
                     ? "bg-green-700 text-white"
-                    : "bg-green-100 text-base-content"
+                    : "bg-green-100 text-green-700"
                 }`}
               >
                 {i + 1}
@@ -106,7 +106,7 @@ export default function OurGallery() {
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="px-3 py-1 bg-green-600 text-base-content rounded disabled:opacity-50"
+              className="px-3 py-1 bg-green-600 text-white rounded disabled:opacity-50"
             >
               Next
             </button>
