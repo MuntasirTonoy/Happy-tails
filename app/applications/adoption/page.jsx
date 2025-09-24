@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 
+// FileUpload component
 function FileUpload({ label, name, accept, value, onChange }) {
   const [fileName, setFileName] = useState("");
 
@@ -18,7 +20,9 @@ function FileUpload({ label, name, accept, value, onChange }) {
       <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-md h-32 cursor-pointer hover:border-green-600 transition">
         <AiOutlineUpload className="text-4xl" />
         <span className="mt-2 text-sm">
-          {fileName ? fileName : "Upload files or drag and drop (PNG, JPG, PDF up to 10MB)"}
+          {fileName
+            ? fileName
+            : "Upload files or drag and drop (PNG, JPG, PDF up to 10MB)"}
         </span>
         <input
           type="file"
@@ -32,6 +36,7 @@ function FileUpload({ label, name, accept, value, onChange }) {
   );
 }
 
+// Main AdoptionForm
 export default function AdoptionForm() {
   const [formData, setFormData] = useState({
     applicationType: "",
@@ -52,33 +57,95 @@ export default function AdoptionForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
+
+    try {
+      const submissionData = { ...formData };
+
+      if (formData.attachment) {
+        const file = formData.attachment;
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = async () => {
+          submissionData.attachment = reader.result; // Base64
+          const response = await fetch("/api/adoptions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(submissionData),
+          });
+
+          const resData = await response.json();
+          if (resData.success) {
+            toast.success(resData.message);
+            setFormData({
+              applicationType: "",
+              experience: "",
+              livingSituation: "",
+              reason: "",
+              references: "",
+              visitDate: "",
+              attachment: null,
+            });
+          } else {
+            toast.error(resData.message);
+          }
+        };
+      } else {
+        const response = await fetch("/api/adoptions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(submissionData),
+        });
+
+        const resData = await response.json();
+        if (resData.success) {
+          toast.success(resData.message);
+          setFormData({
+            applicationType: "",
+            experience: "",
+            livingSituation: "",
+            reason: "",
+            references: "",
+            visitDate: "",
+            attachment: null,
+          });
+        } else {
+          toast.error(resData.message);
+        }
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast.error("Something went wrong while submitting.");
+    }
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20">
+      <Toaster position="top-right" reverseOrder={false} />
+
       <h1 className="text-2xl font-bold mb-6 text-center">Application Form</h1>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Application Type */}
         <div className="space-y-2">
-        <label className="block font-semibold">
-            Application Type
-        </label>
-        <select
+          <label className="block font-semibold">Application Type</label>
+          <select
             name="applicationType"
             value={formData.applicationType}
             onChange={handleChange}
             className="w-full border px-3 py-2 rounded-md text-gray-400"
             required
-        >
+          >
             <option value="">Select application type</option>
             <option value="dog">Dog Adoption</option>
             <option value="cat">Cat Adoption</option>
             <option value="other">Other Pet Adoption</option>
-        </select>
+          </select>
         </div>
 
         {/* Dropdowns */}
@@ -163,12 +230,12 @@ export default function AdoptionForm() {
 
         {/* Submit Button */}
         <div className="flex justify-end">
-            <button
-                type="submit"
-                className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
-            >
-                Submit Application
-            </button>
+          <button
+            type="submit"
+            className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
+          >
+            Submit Application
+          </button>
         </div>
       </form>
     </div>
