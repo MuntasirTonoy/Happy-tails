@@ -1,20 +1,26 @@
-import { FaPaw, FaGoogle, FaFacebookF } from "react-icons/fa";
-import LoginForm from "@/components/auth/Login/LoginForm";
-import Link from "next/link";
+"use client";
 
-export default function LoginPage() {
+import RegisterForm from "@/components/auth/Register/RegisterForm";
+import Link from "next/link";
+import React from "react";
+import { FaPaw, FaGoogle, FaFacebookF } from "react-icons/fa";
+
+export default function RegisterPage() {
   return (
-    <div className="bg-base-200 text-base-content min-h-screen flex items-center justify-center">
-      <div className="w-full bg-base-100 max-w-md p-8 rounded-xl  lg:mt-20 shadow-md">
+    <div className="bg-base-200 min-h-screen flex items-center justify-center ">
+      <div className="w-full max-w-2xl bg-base-100 shadow-md rounded-xl p-8 lg:mt-20 mt-10">
         {/* Logo & Title */}
         <div className="text-center mb-8">
           <FaPaw className="w-12 h-12 mx-auto text-green-500" />
-          <h1 className="text-3xl font-bold mt-4 ">Welcome to HappyTails</h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Log in to find your new best friend.
-          </p>
+          <h1 className="text-3xl text-base-content font-bold mt-4">
+            Welcome to HappyTails
+          </h1>
+          <p className="text-base-content ">Register a new account</p>
         </div>
-        <LoginForm />
+
+        {/* Form */}
+        <RegisterForm />
+
         {/* Divider */}
         <div className="mt-6">
           <div className="divider text-gray-500 dark:text-gray-400">
@@ -34,11 +40,12 @@ export default function LoginPage() {
             </button>
           </div>
         </div>
+
         {/* Footer */}
         <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
-          Don't have any account?{" "}
-          <Link href="/register" className="text-green-500 hover:underline">
-            Register now
+          Already have an account?{" "}
+          <Link href="/login" className="text-green-500 hover:underline">
+            Log in
           </Link>
         </p>
       </div>

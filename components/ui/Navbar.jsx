@@ -84,20 +84,20 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <>
+              <div className="flex gap-1">
                 <Link
                   href="/login"
-                  className="flex text-green-600 font-bold rounded-md bg-green-200 px-3 py-2 items-center gap-1 hover:text-green-600 dark:hover:text-green-500"
+                  className="btn btn-outline btn-success rounded-md  shadow-none"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="flex text-white font-bold rounded-md bg-green-600 px-3 py-2 items-center gap-1 hover:text-green-100 dark:hover:text-green-200"
+                  className="btn btn-success rounded-md shadow-none"
                 >
                   Register
                 </Link>
-              </>
+              </div>
             )}
           </div>
 
@@ -136,7 +136,9 @@ export default function Navbar() {
               className="fixed top-0 left-0 h-full w-64  text-white shadow-xl p-6 z-30"
             >
               <div className="flex justify-between items-center mb-4">
-                <span className="text-lg text-base-content font-semibold mt-2">Menu</span>
+                <span className="text-lg text-base-content font-semibold mt-2">
+                  Menu
+                </span>
                 <button onClick={() => setIsOpen(false)}>
                   <FaTimes className="w-6 h-6 mt-2 text-base-content" />
                 </button>
