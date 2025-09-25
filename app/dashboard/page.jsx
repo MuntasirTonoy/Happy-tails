@@ -6,7 +6,7 @@ import ShelterDashboardPage from "./shelter/page";
 const Dashboard = () => {
   return (
     <div >
-     <ShelterDashboardPage></ShelterDashboardPage>
+      <ShelterDashboardPage></ShelterDashboardPage>
     </div>
   );
 };
