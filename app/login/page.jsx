@@ -1,11 +1,12 @@
 import { FaPaw, FaGoogle, FaFacebookF } from "react-icons/fa";
 import LoginForm from "@/components/auth/Login/LoginForm";
+import SocialLogin from "@/components/auth/SocialLogin/SocialLogin";
 import Link from "next/link";
 
 export default function LoginPage() {
   return (
     <div className="bg-base-200 text-base-content min-h-screen flex items-center justify-center">
-      <div className="w-full bg-base-100 max-w-md p-8 rounded-xl  lg:mt-20 shadow-md">
+      <div className="w-full max-w-md p-8 rounded-xl lg:mt-20 ">
         {/* Logo & Title */}
         <div className="text-center mb-8">
           <FaPaw className="w-12 h-12 mx-auto text-green-500" />
@@ -20,20 +21,9 @@ export default function LoginPage() {
           <div className="divider text-gray-500 dark:text-gray-400">
             Or continue with
           </div>
-
-          {/* Social Buttons */}
-          <div className="grid grid-cols-2 gap-3">
-            <button className="btn  btn-soft btn-success border border-green-500 w-full flex items-center gap-2">
-              <FaGoogle className="w-5 h-5" />
-              Google
-            </button>
-
-            <button className="btn  btn-soft btn-success border border-green-500 w-full flex items-center gap-2 ">
-              <FaFacebookF className="w-5 h-5" />
-              Facebook
-            </button>
-          </div>
         </div>
+        {/* Social Buttons */}
+        <SocialLogin />
         {/* Footer */}
         <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
           Don't have any account?{" "}
