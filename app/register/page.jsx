@@ -1,14 +1,15 @@
 "use client";
 
 import RegisterForm from "@/components/auth/Register/RegisterForm";
+import SocialLogin from "@/components/auth/SocialLogin/SocialLogin";
 import Link from "next/link";
 import React from "react";
-import { FaPaw, FaGoogle, FaFacebookF } from "react-icons/fa";
+import { FaPaw } from "react-icons/fa";
 
 export default function RegisterPage() {
   return (
     <div className="bg-base-200 min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-2xl bg-base-100 shadow-md rounded-xl p-8 lg:mt-20 mt-10">
+      <div className="w-full max-w-2xl  rounded-xl p-8 lg:mt-20 mt-10">
         {/* Logo & Title */}
         <div className="text-center mb-8">
           <FaPaw className="w-12 h-12 mx-auto text-green-500" />
@@ -28,17 +29,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Social Buttons */}
-          <div className="grid grid-cols-2 gap-3">
-            <button className="btn  btn-soft btn-success border border-green-500 w-full flex items-center gap-2">
-              <FaGoogle className="w-5 h-5" />
-              Google
-            </button>
-
-            <button className="btn  btn-soft btn-success border border-green-500 w-full flex items-center gap-2 ">
-              <FaFacebookF className="w-5 h-5" />
-              Facebook
-            </button>
-          </div>
+          <SocialLogin />
         </div>
 
         {/* Footer */}
