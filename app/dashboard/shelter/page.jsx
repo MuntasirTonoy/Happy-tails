@@ -6,6 +6,8 @@ import Pets from "../../../components/shelter/Pets";
 import Application from "../../../components/shelter/Application";
 import Announcement from "../../../components/shelter/Announcement";
 import Settings from "../../../components/shelter/Settings";
+import MyApplications from "@/components/shelter/MyApplications";
+import MyShelters from "@/components/shelter/MyShelters";
 
 export default function ShelterDashboardPage() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -17,6 +19,8 @@ export default function ShelterDashboardPage() {
         {activeTab === "overview" && <Overview />}
         {activeTab === "pets" && <Pets />}
         {activeTab === "applications" && <Application />}
+        {activeTab === "myApplications" && <MyApplications />}
+        {activeTab === "myShelters" && <MyShelters />}
         {activeTab === "announcements" && <Announcement />}
         {activeTab === "settings" && <Settings />}
       </main>
