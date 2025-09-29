@@ -4,6 +4,8 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { FaPaw } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function BlogsPage() {
   const router = useRouter();
@@ -15,7 +17,7 @@ export default function BlogsPage() {
   const [isInitialized, setIsInitialized] = useState(false);
   const perPage = 3;
 
-  // etar kaj url theke page parameter shudhu ekba er jonno pora
+  // etar kaj url theke page parameter shudhu ekbar er jonno pora
   useEffect(() => {
     if (typeof window === "undefined") return;
     
@@ -52,6 +54,9 @@ export default function BlogsPage() {
     
     console.log("Initial page set to:", pageToSet);
     setIsInitialized(true);
+
+    // Initialize AOS once here (duration/easing configurable)
+    AOS.init({ duration: 800, easing: "ease-in-out", once: false });
   }, []);
 
   // blogs load hochche....
@@ -206,10 +211,12 @@ export default function BlogsPage() {
               {filtered.length === 0 ? "No articles found." : `No articles on page ${currentPage}. Showing page 1.`}
             </p>
           ) : (
-            currentItems.map((b) => (
+            currentItems.map((b, index) => (
               <article
                 key={b.id}
                 className="bg-base-200 rounded-lg shadow-md flex flex-col overflow-hidden h-full"
+                data-aos="fade-up"
+                data-aos-delay={index * 100} // individually card gular animation ektu derite shuru hoy....ei delay ta card er index diye calculate korsi..
               >
                 <div className="w-full h-56">
                   <img

@@ -1,8 +1,9 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import FilterBar from "@/components/ui/FilterBar";
 import PetCard from "@/components/ui/PetCard";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function PetsPage() {
   const [pets, setPets] = useState([]);
@@ -22,6 +23,8 @@ export default function PetsPage() {
 
   //  client side e localStorage theke portesi
    // ekhane pagination 3 dile seta local storage e save hobe,abar jodi reload dei taile useState local storage theke value nibe, then page 3 e abar show korbe, 1 e jabena...filter ba search kolreo emon thakbe
+
+  // Load currentPage from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedPage = localStorage.getItem("currentPage");
@@ -29,6 +32,9 @@ export default function PetsPage() {
         setCurrentPage(Number(savedPage));
       }
     }
+
+    // Initialize AOS
+    AOS.init({ duration: 800, easing: "ease-in-out", once: false });
   }, []);
 
   useEffect(() => {
@@ -37,7 +43,7 @@ export default function PetsPage() {
       .then((data) => setPets(data));
   }, []);
 
-  // filtering logic ...
+  // Filtering logic
   const filteredPets = pets.filter((pet) => {
     return (
       pet.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -63,7 +69,7 @@ export default function PetsPage() {
     );
   });
 
-  // pagination
+  // Pagination
   const totalPages = Math.ceil(filteredPets.length / petsPerPage);
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
@@ -95,7 +101,15 @@ export default function PetsPage() {
 
       <div className="grid max-w-7xl mx-auto py-20 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {currentPets.length > 0 ? (
-          currentPets.map((pet) => <PetCard key={pet._id.$oid} pet={pet} />)
+          currentPets.map((pet, index) => (
+            <div
+              key={pet._id.$oid}
+              data-aos="fade-up"
+              data-aos-delay={index * 100} 
+            >
+              <PetCard pet={pet} />
+            </div>
+          ))
         ) : (
           <p className="col-span-full text-center text-gray-500">No pets found</p>
         )}
