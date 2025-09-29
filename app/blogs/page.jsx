@@ -238,7 +238,7 @@ export default function BlogsPage() {
                         Read More
                       </button>
                     </Link>
-                    <span className="text-sm">By {b.author}</span>
+                    <span className="text-sm text-base-content">By {b.author}</span>
                   </div>
                 </div>
               </article>
