@@ -84,7 +84,8 @@ export default function AboutPage() {
               ></div>
               <h3 className="text-xl font-bold text-green-600 mb-4">Values</h3>
               <p>
-                Compassion, Responsibility, and Community — the guiding
+                Compassion,Integrity,Collaboration,
+                Innovations, Responsibility, and Community — the guiding
                 principles of HappyTails.
               </p>
             </div>
