@@ -9,6 +9,7 @@ export const metadata = {
   description: "A Pet Adoption Portal",
 };
 
+import { Toaster } from "react-hot-toast";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
           <ThemeProvider>
             <Navbar />
             {children}
+            <Toaster position="top-right" />
             <Footer />
           </ThemeProvider>
         </SessionProvider>

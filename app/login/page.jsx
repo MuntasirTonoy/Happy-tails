@@ -2,8 +2,14 @@ import { FaPaw, FaGoogle, FaFacebookF } from "react-icons/fa";
 import LoginForm from "@/components/auth/Login/LoginForm";
 import SocialLogin from "@/components/auth/SocialLogin/SocialLogin";
 import Link from "next/link";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+export default async function LoginPage() {
+  const session = await auth();
 
-export default function LoginPage() {
+  if (session) {
+    redirect("/"); // 👈 already logged in, go home (or dashboard)
+  }
   return (
     <div className="bg-base-200 text-base-content min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md p-8 rounded-xl lg:mt-20 ">
