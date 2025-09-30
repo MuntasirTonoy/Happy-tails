@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
+import toast, { Toaster } from "react-hot-toast";
 
-function FileUpload({ name, accept, onChange }) {
+function FileUpload({ name, accept, value, onChange }) {
   const [fileName, setFileName] = useState("");
 
   const handleFileChange = (e) => {
@@ -11,6 +12,8 @@ function FileUpload({ name, accept, onChange }) {
     if (file) setFileName(file.name);
     onChange(e);
   };
+
+  if (!value && fileName) setFileName("");
 
   return (
     <label className="flex flex-col items-center justify-center border-2 border-dashed border-green-400 rounded-md h-32 cursor-pointer hover:border-green-600 transition">
@@ -51,18 +54,58 @@ export default function ShelterRequestForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Shelter Request Submitted:", formData);
+    const submissionData = { ...formData };
+
+    const submitForm = async () => {
+      try {
+        const response = await fetch("/api/shelter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(submissionData),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          toast.success(data.message);
+          setFormData({
+            shelterName: "",
+            shelterImage: null,
+            location: "",
+            contactEmail: "",
+            contactPhone: "",
+          });
+        } else {
+          toast.error(data.message || "Failed to create shelter");
+        }
+      } catch (err) {
+        console.error("Error submitting shelter:", err);
+        toast.error("Something went wrong while submitting.");
+      }
+    };
+
+    if (formData.shelterImage) {
+      const file = formData.shelterImage;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        submissionData.shelterImage = reader.result;
+        submitForm();
+      };
+    } else {
+      submitForm();
+    }
   };
 
   return (
     <div className="max-w-xl mx-auto p-6 shadow-md rounded-md mt-8 pt-20">
+      <Toaster position="top-right" reverseOrder={false} />
+
       <h1 className="text-2xl font-bold mb-2 text-center">Create a New Shelter</h1>
       <p className="text-center mb-6">
         Help us find more forever homes for pets in need.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Shelter Name */}
         <div className="space-y-2">
           <label className="block font-semibold">Shelter Name</label>
           <input
@@ -76,17 +119,18 @@ export default function ShelterRequestForm() {
           />
         </div>
 
-        {/* Shelter Image */}
+
         <div className="space-y-2">
           <label className="block font-semibold">Shelter Image</label>
           <FileUpload
             name="shelterImage"
             accept=".png,.jpg,.gif"
+            value={formData.shelterImage}
             onChange={handleChange}
           />
         </div>
 
-        {/* Location */}
+       
         <div className="space-y-2">
           <label className="block font-semibold">Location</label>
           <input
@@ -100,7 +144,7 @@ export default function ShelterRequestForm() {
           />
         </div>
 
-        {/* Contact Email */}
+        
         <div className="space-y-2">
           <label className="block font-semibold">Contact Email</label>
           <input
@@ -114,7 +158,7 @@ export default function ShelterRequestForm() {
           />
         </div>
 
-        {/* Contact Phone */}
+       
         <div className="space-y-2">
           <label className="block font-semibold">Contact Phone</label>
           <input
@@ -128,11 +172,11 @@ export default function ShelterRequestForm() {
           />
         </div>
 
-        {/* Submit */}
+       
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
+            className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700 text-white"
           >
             Create Shelter
           </button>

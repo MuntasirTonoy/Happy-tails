@@ -31,6 +31,31 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         </button>
 
         <button
+          onClick={() => setActiveTab("myApplications")}
+          className={`p-2 rounded ${
+            activeTab === "myApplications"
+              ? "bg-green-500 text-white"
+              : "hover:bg-gray-200"
+          }`}
+        >
+          My Applications
+        </button>
+
+        <button
+          onClick={() => setActiveTab("myShelters")}
+          className={`p-2 rounded ${
+            activeTab === "myShelters"
+              ? "bg-green-500 text-white"
+              : "hover:bg-gray-200"
+          }`}
+        >
+          My Shelters
+        </button>
+
+
+
+
+        <button
           onClick={() => setActiveTab("announcements")}
           className={`p-2 rounded ${
             activeTab === "announcements" ? "bg-green-500 text-white" : "hover:bg-gray-200"
