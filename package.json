@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "aos": "^2.3.4",
     "mongodb": "^6.20.0",
     "mongoose": "^8.18.2",
     "motion": "^12.23.16",

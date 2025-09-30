@@ -156,6 +156,12 @@ export default function Navbar() {
                 <div className="border-t pt-4 mt-4">
                   {user ? (
                     <>
+                      <div className="w-10 rounded-full border-2 border-green-600 mb-4 ml-2">
+                        <img
+                          src={user.image || "/default-profile.png"}
+                          alt="Profile"
+                        />
+                      </div>
                       <LinkItemMobile href="/dashboard" label="Dashboard" />
                       <Logout />
                     </>
