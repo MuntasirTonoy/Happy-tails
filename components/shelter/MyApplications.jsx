@@ -5,17 +5,14 @@ import { useEffect, useState } from "react";
 export default function MyApplications() {
   const [applications, setApplications] = useState([]);
 
-useEffect(() => {
   const fetchApplications = async () => {
     try {
       const res = await fetch("/api/adoptions");
       const result = await res.json();
-
       if (result.success) {
         setApplications(result.data);
       } else {
         setApplications([]);
-        console.error("Failed to fetch applications:", result.message);
       }
     } catch (err) {
       console.error("Error fetching applications:", err);
@@ -23,11 +20,14 @@ useEffect(() => {
     }
   };
 
-  fetchApplications();
-}, []);
+  useEffect(() => {
+    fetchApplications();
+    const interval = setInterval(fetchApplications, 5000); 
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="bg-black">
+    <div className="bg-black p-4">
       <h2 className="text-xl font-bold mb-4 text-center">My Applications</h2>
       <table className="w-full border-collapse border border-gray-300">
         <thead>
