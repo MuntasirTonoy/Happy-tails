@@ -4,7 +4,8 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function PetDetailsPage() {
   const { id } = useParams();
@@ -30,6 +31,9 @@ export default function PetDetailsPage() {
     fetch("/data/shelters.json")
       .then((res) => res.json())
       .then((data) => setShelters(data));
+
+    // Initialize AOS
+    AOS.init({ duration: 800, easing: "ease-in-out", once: false });
   }, [id]);
 
   if (!pet) return <p className="text-center mt-10">Loading...</p>;
@@ -57,8 +61,7 @@ export default function PetDetailsPage() {
       <div className="max-w-7xl mx-auto px-4 py-36">
         {/* Back Button */}
         <button
-          onClick={() => 
-         router.back()}
+          onClick={() => router.back()}
           className="mb-6 px-5 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition"
         >
           ← Back to Pets
@@ -197,10 +200,12 @@ export default function PetDetailsPage() {
           <div className="mt-16">
             <h2 className="text-2xl text-base-content font-bold mb-6">Suggested Pets</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {suggestedPets.slice(0, 3).map((spet) => (
+              {suggestedPets.slice(0, 3).map((spet, idx) => (
                 <div
                   key={spet._id.$oid}
                   className="bg-base-300 rounded-lg shadow-md overflow-hidden"
+                  data-aos="fade-up"
+                  data-aos-delay={idx * 100}
                 >
                   <img
                     src={spet.imageUrl[0]}

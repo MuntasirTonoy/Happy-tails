@@ -4,7 +4,6 @@ import { useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 
-// FileUpload component
 function FileUpload({ label, name, accept, value, onChange }) {
   const [fileName, setFileName] = useState("");
 
@@ -13,6 +12,11 @@ function FileUpload({ label, name, accept, value, onChange }) {
     if (file) setFileName(file.name);
     onChange(e);
   };
+
+
+  if (!value && fileName) {
+    setFileName("");
+  }
 
   return (
     <div className="space-y-1">
@@ -36,8 +40,8 @@ function FileUpload({ label, name, accept, value, onChange }) {
   );
 }
 
-// Main AdoptionForm
-export default function AdoptionForm() {
+
+function AdoptionForm() {
   const [formData, setFormData] = useState({
     applicationType: "",
     experience: "",
@@ -57,6 +61,18 @@ export default function AdoptionForm() {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      applicationType: "",
+      experience: "",
+      livingSituation: "",
+      reason: "",
+      references: "",
+      visitDate: "",
+      attachment: null,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,7 +84,7 @@ export default function AdoptionForm() {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = async () => {
-          submissionData.attachment = reader.result; // Base64
+          submissionData.attachment = reader.result; 
           const response = await fetch("/api/adoptions", {
             method: "POST",
             headers: {
@@ -80,15 +96,7 @@ export default function AdoptionForm() {
           const resData = await response.json();
           if (resData.success) {
             toast.success(resData.message);
-            setFormData({
-              applicationType: "",
-              experience: "",
-              livingSituation: "",
-              reason: "",
-              references: "",
-              visitDate: "",
-              attachment: null,
-            });
+            resetForm();
           } else {
             toast.error(resData.message);
           }
@@ -105,15 +113,7 @@ export default function AdoptionForm() {
         const resData = await response.json();
         if (resData.success) {
           toast.success(resData.message);
-          setFormData({
-            applicationType: "",
-            experience: "",
-            livingSituation: "",
-            reason: "",
-            references: "",
-            visitDate: "",
-            attachment: null,
-          });
+          resetForm(); 
         } else {
           toast.error(resData.message);
         }
@@ -129,9 +129,8 @@ export default function AdoptionForm() {
       <Toaster position="top-right" reverseOrder={false} />
 
       <h1 className="text-2xl font-bold mb-6 text-center">Application Form</h1>
-
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Application Type */}
+        
         <div className="space-y-2">
           <label className="block font-semibold">Application Type</label>
           <select
@@ -148,7 +147,7 @@ export default function AdoptionForm() {
           </select>
         </div>
 
-        {/* Dropdowns */}
+       
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="block font-semibold">Experience Level</label>
@@ -183,7 +182,7 @@ export default function AdoptionForm() {
           </div>
         </div>
 
-        {/* Textareas */}
+       
         <div className="space-y-2">
           <label className="block font-semibold">Reason for Adoption</label>
           <textarea
@@ -207,7 +206,7 @@ export default function AdoptionForm() {
           />
         </div>
 
-        {/* Date */}
+       
         <div className="space-y-2">
           <label className="block font-semibold">Preferred Visit Date</label>
           <input
@@ -220,19 +219,20 @@ export default function AdoptionForm() {
           />
         </div>
 
-        {/* File Upload */}
+   
         <FileUpload
           label="Attachments"
           name="attachment"
           accept=".pdf,.jpg,.png"
+          value={formData.attachment}
           onChange={handleChange}
         />
 
-        {/* Submit Button */}
+       
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-green-600 px-6 py-2 font-bold rounded-md hover:bg-green-700"
+            className="bg-green-600 text-white px-6 py-2 font-bold rounded-md hover:bg-green-700"
           >
             Submit Application
           </button>
@@ -240,4 +240,8 @@ export default function AdoptionForm() {
       </form>
     </div>
   );
+}
+
+export default function Page() {
+  return <AdoptionForm />;
 }

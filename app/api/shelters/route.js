@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { connectDB } from "../../../lib/db";
 import Shelter from "../../../models/Shelter";
 
-// CREATE Shelter
 export async function POST(req) {
   await connectDB();
   try {
@@ -14,7 +13,6 @@ export async function POST(req) {
   }
 }
 
-// GET All shelters
 export async function GET() {
   await connectDB();
   try {
@@ -25,7 +23,6 @@ export async function GET() {
   }
 }
 
-// UPDATE Shelter
 export async function PATCH(req) {
   await connectDB();
   try {
@@ -37,7 +34,6 @@ export async function PATCH(req) {
   }
 }
 
-// DELETE Shelter
 export async function DELETE(req) {
   await connectDB();
   try {

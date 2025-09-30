@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { FaPaw } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function OurGallery() {
   const [pets, setPets] = useState([]);
@@ -15,7 +17,7 @@ export default function OurGallery() {
       .catch((err) => console.error("Error fetching pets:", err));
   }, []);
 
-  //Load currentPage from localStorage on mount
+  // Load currentPage from localStorage on mount
   useEffect(() => {
     const savedPage = localStorage.getItem("galleryPage");
     if (savedPage) {
@@ -23,12 +25,17 @@ export default function OurGallery() {
     }
   }, []);
 
-  //  Save currentPage to localStorage whenever it changes
+  // Save currentPage to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("galleryPage", currentPage.toString());
   }, [currentPage]);
 
-  // sob images ek array te convert
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({ duration: 800, easing: "ease-in-out", once: false });
+  }, []);
+
+  // Convert all images into one array
   const allImages = pets.flatMap((pet) =>
     pet.imageUrl.map((img, idx) => ({
       id: `${pet._id?.$oid || pet._id}-${idx}`,
@@ -37,7 +44,7 @@ export default function OurGallery() {
     }))
   );
 
-  // pagination calculation
+  // Pagination calculation
   const totalPages = Math.ceil(allImages.length / imagesPerPage);
   const indexOfLast = currentPage * imagesPerPage;
   const indexOfFirst = indexOfLast - imagesPerPage;
@@ -60,10 +67,12 @@ export default function OurGallery() {
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {currentImages.map((item) => (
+          {currentImages.map((item, index) => (
             <div
               key={item.id}
               className="relative group overflow-hidden rounded-xl shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300"
+              data-aos="fade-up"
+              data-aos-delay={index * 100} 
             >
               <img
                 src={item.img}
@@ -80,7 +89,7 @@ export default function OurGallery() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center mt-20 space-x-2">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}

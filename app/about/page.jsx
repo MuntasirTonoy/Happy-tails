@@ -5,6 +5,8 @@ import { IoHomeOutline } from "react-icons/io5";
 import { IoPeopleOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { useTheme } from "@/components/ui/ThemeContext";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function AboutPage() {
   const [pets, setPets] = useState([]);
@@ -15,6 +17,9 @@ export default function AboutPage() {
       .then((res) => res.json())
       .then((data) => setPets(data))
       .catch((err) => console.error("Error fetching pets:", err));
+
+    //bar bar Initialize kore AOS k..
+    AOS.init({ duration: 800, easing: "ease-in-out", once: false });
   }, []);
 
   return (
@@ -38,57 +43,30 @@ export default function AboutPage() {
             Our Mission, Vision, and Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-green-100 relative p-6 rounded-lg shadow-md hover:shadow-lg transition text-black">
-              {/* Overlay */}
+            {[
+              { title: "Mission", text: "To connect loving homes with pets in need through a seamless and supportive adoption process,ensuring every animal finds a safe, nurturing environment." },
+              { title: "Vision", text: "To be the leading pet adoption portal,recognized for our commitment to animal welfare and innovative approach to connect pets with adopters." },
+              { title: "Values", text: "Compassion,Integrity,Collaboration, Innovations, Responsibility, and Community — the guiding principles of HappyTails." }
+            ].map((item, index) => (
               <div
-                className="absolute inset-0 transition-colors duration-300"
-                style={{
-                  backgroundColor: darkMode
-                    ? "rgba(0,0,0,0.4)"
-                    : "rgba(0,0,0,0.08)",
-                }}
-              ></div>
-              <h3 className="text-xl font-bold text-green-600 mb-4">Mission</h3>
-              <p className="">
-                To connect loving homes with pets in need through a seamless and
-                supportive adoption process,ensuring every animal finds a safe,
-                nurturing environment.
-              </p>
-            </div>
-            <div className="bg-green-100 p-6 rounded-lg shadow-md hover:shadow-lg transition text-black relative">
-              {/* Overlay */}
-              <div
-                className="absolute inset-0 transition-colors duration-300"
-                style={{
-                  backgroundColor: darkMode
-                    ? "rgba(0,0,0,0.4)"
-                    : "rgba(0,0,0,0.08)",
-                }}
-              ></div>
-              <h3 className="text-xl font-bold text-green-600 mb-4">Vision</h3>
-              <p>
-                To be the leading pet adoption portal,recognized for our
-                commitment to animal welfare and innovative approach to connect
-                pets with adopters.
-              </p>
-            </div>
-            <div className="bg-green-100 p-6 rounded-lg shadow-md hover:shadow-lg relative transition text-black">
-              {/* Overlay */}
-              <div
-                className="absolute inset-0 transition-colors duration-300"
-                style={{
-                  backgroundColor: darkMode
-                    ? "rgba(0,0,0,0.4)"
-                    : "rgba(0,0,0,0.08)",
-                }}
-              ></div>
-              <h3 className="text-xl font-bold text-green-600 mb-4">Values</h3>
-              <p>
-                Compassion,Integrity,Collaboration,
-                Innovations, Responsibility, and Community — the guiding
-                principles of HappyTails.
-              </p>
-            </div>
+                key={item.title}
+                className="bg-green-100 relative p-6 rounded-lg shadow-md hover:shadow-lg transition text-black"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                {/* Overlay */}
+                <div
+                  className="absolute inset-0 transition-colors duration-300"
+                  style={{
+                    backgroundColor: darkMode
+                      ? "rgba(0,0,0,0.4)"
+                      : "rgba(0,0,0,0.08)",
+                  }}
+                ></div>
+                <h3 className="text-xl font-bold text-green-600 mb-4">{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -121,7 +99,12 @@ export default function AboutPage() {
               img: "https://i.ibb.co.com/q3s8DDkk/jerin.png",
             },
           ].map((member, i) => (
-            <div key={i} className="bg-base-300 py-6  rounded-xl  transition">
+            <div
+              key={i}
+              className="bg-base-300 py-6  rounded-xl  transition"
+              data-aos="fade-up"
+              data-aos-delay={i * 100}
+            >
               <img
                 src={member.img}
                 alt={member.name}
@@ -146,6 +129,8 @@ export default function AboutPage() {
             <div
               key={idx}
               className="bg-base-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
+              data-aos="fade-up"
+              data-aos-delay={idx * 100}
             >
               <img
                 src={pet.imageUrl[0]}
