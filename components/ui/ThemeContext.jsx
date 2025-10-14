@@ -1,38 +1,32 @@
 "use client";
-
 import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // local storage er kaj client side e korte use effect use korbo r etar karon Next js ssr cholar somoy local storage pawa jayna...eta sobsomoy browser environment e thake.....ssr cholar somoy code node js context e execute hoy tai localStorage is not defined error dey
-
-  // localStorage theke theme load korsi
   useEffect(() => {
+    setIsMounted(true);
     const savedMode = localStorage.getItem("darkMode");
-    if (savedMode) {
-      setDarkMode(JSON.parse(savedMode));
-    }
+    if (savedMode) setDarkMode(JSON.parse(savedMode));
   }, []);
 
-  // theme update 
   useEffect(() => {
+    if (!isMounted) return;
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
-
+    const html = document.documentElement;
     if (darkMode) {
-      document.documentElement.classList.add("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
+      html.classList.add("dark");
+      html.setAttribute("data-theme", "dark");
     } else {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.setAttribute("data-theme", "light");
+      html.classList.remove("dark");
+      html.setAttribute("data-theme", "light");
     }
-  }, [darkMode]);
+  }, [darkMode, isMounted]);
 
-  const toggleTheme = () => {
-    setDarkMode((prevMode) => !prevMode);
-  };
+  const toggleTheme = () => setDarkMode(prev => !prev);
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
